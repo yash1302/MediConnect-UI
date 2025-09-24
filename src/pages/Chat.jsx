@@ -123,6 +123,8 @@ export default function Chat() {
   useEffect(() => {
     if (!socketRef.current || !roomId) return;
     const handleMessage = (msg) => {
+      console.log(roomId, "roomId in message");
+      console.log(msg.roomId, "msg.roomId");
       if (msg.roomId === roomId) {
         setMessages((prev) => [...prev, msg]);
       }

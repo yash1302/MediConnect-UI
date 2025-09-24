@@ -5,7 +5,6 @@ import { AppContext } from "../context/AppContext";
 
 const Navbar = () => {
   const navigate = useNavigate();
-
   const [showMenu, setShowMenu] = useState(false);
   const { token, setToken, userData } = useContext(AppContext);
 
@@ -24,27 +23,27 @@ const Navbar = () => {
         alt=""
       />
       <ul className="md:flex items-start gap-5 font-medium hidden">
-        <NavLink to="/">
+        <div onClick={() => navigate("/")} className="cursor-pointer">
           <li className="py-1">HOME</li>
           <hr className="border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden" />
-        </NavLink>
-        <NavLink to="/doctors">
+        </div>
+        <div onClick={() => navigate("/doctors")} className="cursor-pointer">
           <li className="py-1">ALL DOCTORS</li>
           <hr className="border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden" />
-        </NavLink>
-        <NavLink to="/about">
+        </div>
+        <div onClick={() => navigate("/about")} className="cursor-pointer">
           <li className="py-1">ABOUT</li>
           <hr className="border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden" />
-        </NavLink>
-        <NavLink to="/contact">
+        </div>
+        <div onClick={() => navigate("/contact")} className="cursor-pointer">
           <li className="py-1">CONTACT</li>
           <hr className="border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden" />
-        </NavLink>
+        </div>
         {token && userData && (
-          <NavLink to="/chat">
+          <div onClick={() => navigate("/chat")} className="cursor-pointer">
             <li className="py-1">CHAT</li>
             <hr className="border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden" />
-          </NavLink>
+          </div>
         )}
       </ul>
 
@@ -104,9 +103,15 @@ const Navbar = () => {
             />
           </div>
           <ul className="flex flex-col items-center gap-2 mt-5 px-5 text-lg font-medium">
-            <NavLink onClick={() => setShowMenu(false)} to="/">
+            <div
+              onClick={() => {
+                setShowMenu(false);
+                navigate("/");
+              }}
+              className="cursor-pointer"
+            >
               <p className="px-4 py-2 rounded full inline-block">HOME</p>
-            </NavLink>
+            </div>
             <NavLink onClick={() => setShowMenu(false)} to="/doctors">
               <p className="px-4 py-2 rounded full inline-block">ALL DOCTORS</p>
             </NavLink>

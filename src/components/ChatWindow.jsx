@@ -1,5 +1,5 @@
 // src/components/ChatWindow.jsx
-import React from "react";
+import   { useEffect, useRef } from "react";
 
 const ChatWindow = ({
   selectedDoctor,
@@ -9,7 +9,13 @@ const ChatWindow = ({
   handleSend,
   userId,
 }) => {
-  console.log(messages,"messages user");
+  const messagesEndRef = useRef(null);
+
+  useEffect(() => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages]);
   return (
     <div className="flex-1 flex flex-col">
       {/* Doctor Header */}
@@ -29,8 +35,7 @@ const ChatWindow = ({
 
       {/* Messages */}
       <div className="flex-1 p-4 overflow-y-auto bg-white">
-        {
-        messages.map((msg, idx) => (
+        {messages.map((msg, idx) => (
           <div
             key={idx}
             className={`mb-3 flex ${
@@ -48,6 +53,7 @@ const ChatWindow = ({
             </div>
           </div>
         ))}
+        <div ref={messagesEndRef} />
       </div>
 
       {/* Input */}
