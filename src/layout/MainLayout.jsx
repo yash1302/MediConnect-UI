@@ -7,12 +7,12 @@ const MainLayout = () => {
   const location = useLocation();
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen flex flex-col">
       {/* Fixed Navbar */}
-      <Navbar />
+      <Navbar/>
 
       {/* Main Content with top padding for fixed navbar */}
-      <main className="pt-[72px]">
+      <main className="pt-[72px] flex-1">
         <Outlet />
       </main>
 

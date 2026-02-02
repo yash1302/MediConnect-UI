@@ -134,24 +134,57 @@ export default function Chat() {
   }, [roomId]);
 
   return (
-    <div className=" flex h-[80vh] bg-white rounded-lg shadow-lg overflow-hidden">
-      {doctors && selectedDoctor && (
-        <>
-          <ChatSidebar
-            doctors={doctors}
-            selectedDoctor={selectedDoctor}
-            setSelectedDoctor={setSelectedDoctor}
-          />
-          <ChatWindow
-            selectedDoctor={selectedDoctor}
-            messages={messages}
-            input={input}
-            setInput={setInput}
-            handleSend={handleSend}
-            userId={userData?._id}
-          />
-        </>
-      )}
+    <div className="h-[calc(100vh-72px)] bg-gradient-to-b from-gray-50 to-white flex flex-col">
+      {/* Chat Container */}
+      <div className="flex-1 max-w-7xl mx-auto w-full px-4 py-4 overflow-hidden">
+        <div className="flex h-full bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+          {doctors && selectedDoctor && (
+            <>
+              <ChatSidebar
+                doctors={doctors}
+                selectedDoctor={selectedDoctor}
+                setSelectedDoctor={setSelectedDoctor}
+              />
+              <ChatWindow
+                selectedDoctor={selectedDoctor}
+                messages={messages}
+                input={input}
+                setInput={setInput}
+                handleSend={handleSend}
+                userId={userData?._id}
+              />
+            </>
+          )}
+
+          {/* Empty State - No doctors */}
+          {(!doctors || doctors.length === 0) && (
+            <div className="flex-1 flex flex-col items-center justify-center text-center p-8">
+              <div className="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center mb-4">
+                <svg
+                  className="w-8 h-8 text-gray-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={1.5}
+                    d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+                  />
+                </svg>
+              </div>
+              <h3 className="text-gray-900 font-medium mb-1">
+                No conversations yet
+              </h3>
+              <p className="text-sm text-gray-500 max-w-xs">
+                Book an appointment to start messaging with your healthcare
+                provider.
+              </p>
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 }

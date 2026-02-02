@@ -1,41 +1,94 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { AppContext } from '../context/AppContext'
+import React, { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { AppContext } from "../context/AppContext";
+
 const RelatedDoctors = ({ speciality, docId }) => {
+  const navigate = useNavigate();
+  const { doctors } = useContext(AppContext);
+  const [relDoc, setRelDoc] = useState([]);
 
-    const navigate = useNavigate()
-    const { doctors } = useContext(AppContext)
+  useEffect(() => {
+    if (doctors.length > 0 && speciality) {
+      const doctorsData = doctors.filter(
+        (doc) => doc.speciality === speciality && doc._id !== docId,
+      );
+      setRelDoc(doctorsData);
+    }
+  }, [doctors, speciality, docId]);
 
-    const [relDoc, setRelDoc] = useState([])
+  if (relDoc.length === 0) return null;
 
-    useEffect(() => {
-        if (doctors.length > 0 && speciality) {
-            const doctorsData = doctors.filter((doc) => doc.speciality === speciality && doc._id !== docId)
-            setRelDoc(doctorsData)
-        }
-    }, [doctors, speciality, docId])
-
-    return (
-        <div className='flex flex-col items-center gap-4 my-16 text-[#262626]'>
-            <h1 className='text-3xl font-medium'>Related Doctors</h1>
-            <p className='sm:w-1/3 text-center text-sm'>Simply browse through our extensive list of trusted doctors.</p>
-            <div className='w-full grid grid-cols-auto gap-4 pt-5 gap-y-6 px-3 sm:px-0'>
-                {relDoc.map((item, index) => (
-                    <div onClick={() => { navigate(`/appointment/${item._id}`); scrollTo(0, 0) }} className='border border-[#C9D8FF] rounded-xl overflow-hidden cursor-pointer hover:translate-y-[-10px] transition-all duration-500' key={index}>
-                        <img className='bg-[#EAEFFF]' src={item.image} alt="" />
-                        <div className='p-4'>
-                            <div className={`flex items-center gap-2 text-sm text-center ${item.available ? 'text-green-500' : "text-gray-500"}`}>
-                                <p className={`w-2 h-2 rounded-full ${item.available ? 'bg-green-500' : "bg-gray-500"}`}></p><p>{item.available ? 'Available' : "Not Available"}</p>
-                            </div>
-                            <p className='text-[#262626] text-lg font-medium'>{item.name}</p>
-                            <p className='text-[#5C5C5C] text-sm'>{item.speciality}</p>
-                        </div>
-                    </div>
-                ))}
-            </div>
-            {/* <button className='bg-[#EAEFFF] text-gray-600 px-12 py-3 rounded-full mt-10'>more</button> */}
+  return (
+    <div className="py-8">
+      <div className="flex items-center justify-between mb-6">
+        <div>
+          <h2 className="text-xl font-bold text-gray-900">Similar Doctors</h2>
+          <p className="text-sm text-gray-500 mt-1">
+            Other {speciality}s you might like
+          </p>
         </div>
-    )
-}
+        <a
+          href={`/doctors/${speciality}`}
+          className="text-sm font-medium text-primary hover:text-primary/80 transition-colors"
+        >
+          View all
+        </a>
+      </div>
 
-export default RelatedDoctors
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {relDoc.slice(0, 3).map((item, index) => (
+          <div
+            onClick={() => {
+              navigate(`/appointment/${item._id}`);
+              scrollTo(0, 0);
+            }}
+            className="bg-white border border-gray-100 rounded-xl p-4 cursor-pointer hover:shadow-md hover:border-transparent transition-all duration-200 group"
+            key={index}
+          >
+            <div className="flex items-center gap-4">
+              <img
+                className="w-16 h-16 rounded-xl object-cover bg-gradient-to-br from-primary/10 to-primary/5"
+                src={item.image}
+                alt={item.name}
+              />
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2">
+                  <h3 className="font-semibold text-gray-900 truncate group-hover:text-primary transition-colors">
+                    {item.name}
+                  </h3>
+                  <span className="w-1.5 h-1.5 rounded-full bg-blue-500 flex-shrink-0"></span>
+                </div>
+                <p className="text-sm text-gray-500 truncate">
+                  {item.speciality}
+                </p>
+                <div
+                  className={`flex items-center gap-1.5 mt-1 text-xs font-medium ${item.available ? "text-emerald-600" : "text-gray-400"}`}
+                >
+                  <span
+                    className={`w-1.5 h-1.5 rounded-full ${item.available ? "bg-emerald-500" : "bg-gray-300"}`}
+                  ></span>
+                  {item.available ? "Available" : "Not Available"}
+                </div>
+              </div>
+              <svg
+                className="w-5 h-5 text-gray-300 group-hover:text-primary group-hover:translate-x-1 transition-all flex-shrink-0"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 5l7 7-7 7"
+                />
+              </svg>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default RelatedDoctors;
