@@ -9,7 +9,7 @@ const Doctors = () => {
   const [showFilter, setShowFilter] = useState(false);
   const navigate = useNavigate();
 
-  const { doctors } = useContext(AppContext);
+  const { doctors, getDoctosData } = useContext(AppContext);
 
   const applyFilter = () => {
     if (speciality) {
@@ -22,6 +22,10 @@ const Doctors = () => {
   useEffect(() => {
     applyFilter();
   }, [doctors, speciality]);
+
+  useEffect(() => {
+    getDoctosData();
+  }, []);
 
   return (
     <div>
@@ -117,37 +121,51 @@ const Doctors = () => {
             Gastroenterologist
           </p>
         </div>
-        <div className="w-full grid grid-cols-auto gap-4 gap-y-6">
-          {filterDoc.map((item, index) => (
-            <div
-              onClick={() => {
-                navigate(`/appointment/${item._id}`);
-                scrollTo(0, 0);
-              }}
-              className="border border-[#C9D8FF] rounded-xl overflow-hidden cursor-pointer hover:translate-y-[-10px] transition-all duration-500"
-              key={index}
-            >
-              <img className="bg-[#EAEFFF]" src={item.image} alt="" />
-              <div className="p-4">
-                <div
-                  className={`flex items-center gap-2 text-sm text-center ${
-                    item.available ? "text-green-500" : "text-gray-500"
-                  }`}
-                >
-                  <p
-                    className={`w-2 h-2 rounded-full ${
-                      item.available ? "bg-green-500" : "bg-gray-500"
-                    }`}
-                  ></p>
-                  <p>{item.available ? "Available" : "Not Available"}</p>
-                </div>
-                <p className="text-[#262626] text-lg font-medium">
-                  {item.name}
-                </p>
-                <p className="text-[#5C5C5C] text-sm">{item.speciality}</p>
-              </div>
+        <div className="h-full w-full">
+          {filterDoc.length === 0 ? (
+            <div className="flex items-center justify-center py-12">
+              <p className="text-gray-500 text-lg">
+                No doctors available in this category
+              </p>
             </div>
-          ))}
+          ) : (
+            <div className="w-full grid grid-cols-auto gap-4 gap-y-6 max-h-[600px] overflow-y-auto px-1">
+              {filterDoc.map((item, index) => (
+                <div
+                  onClick={() => {
+                    navigate(`/appointment/${item._id}`);
+                    scrollTo(0, 0);
+                  }}
+                  className="border border-[#C9D8FF] rounded-xl overflow-hidden cursor-pointer hover:translate-y-[-10px] transition-all duration-500"
+                  key={index}
+                >
+                  <img
+                    className="bg-[#EAEFFF] h-[200px] w-full object-cover"
+                    src={item.image}
+                    alt=""
+                  />
+                  <div className="p-4">
+                    <div
+                      className={`flex items-center gap-2 text-sm text-center ${
+                        item.available ? "text-green-500" : "text-gray-500"
+                      }`}
+                    >
+                      <p
+                        className={`w-2 h-2 rounded-full ${
+                          item.available ? "bg-green-500" : "bg-gray-500"
+                        }`}
+                      ></p>
+                      <p>{item.available ? "Available" : "Not Available"}</p>
+                    </div>
+                    <p className="text-[#262626] text-lg font-medium">
+                      {item.name}
+                    </p>
+                    <p className="text-[#5C5C5C] text-sm">{item.speciality}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </div>
