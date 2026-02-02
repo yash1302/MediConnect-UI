@@ -4,43 +4,124 @@ import { NavLink } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <div className="md:mx-10">
-      <div className="flex flex-col sm:grid grid-cols-[3fr_1fr_1fr] gap-14 my-10  mt-40 text-sm">
-        <div>
-          <img className="mb-5 w-12" src={assets.logo} alt="" />
-          <p className="w-full md:w-2/3 text-gray-600 leading-6">
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s, when an unknown printer took a galley of type
-            and scrambled it to make a type specimen book.
+    <footer className="bg-gray-900">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-16">
+          {/* Brand */}
+          <div className="col-span-2 md:col-span-1">
+            <div className="flex items-center gap-2 mb-4">
+              <img
+                className="w-8 h-8 brightness-0 invert"
+                src={assets.logo}
+                alt="MediConnect"
+              />
+              <span className="font-semibold text-white text-lg">
+                MediConnect
+              </span>
+            </div>
+            <p className="text-gray-400 text-sm leading-relaxed">
+              Modern healthcare platform connecting patients with trusted
+              healthcare professionals.
+            </p>
+          </div>
+
+          {/* Product */}
+          <div>
+            <h4 className="font-semibold text-white mb-4">Product</h4>
+            <ul className="space-y-3">
+              <li>
+                <NavLink
+                  to="/doctors"
+                  className="text-gray-400 hover:text-white text-sm transition-colors"
+                >
+                  Find Doctors
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/about"
+                  className="text-gray-400 hover:text-white text-sm transition-colors"
+                >
+                  How it Works
+                </NavLink>
+              </li>
+              <li>
+                <span className="text-gray-500 text-sm">Pricing</span>
+              </li>
+            </ul>
+          </div>
+
+          {/* Company */}
+          <div>
+            <h4 className="font-semibold text-white mb-4">Company</h4>
+            <ul className="space-y-3">
+              <li>
+                <NavLink
+                  to="/about"
+                  className="text-gray-400 hover:text-white text-sm transition-colors"
+                >
+                  About Us
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/contact"
+                  className="text-gray-400 hover:text-white text-sm transition-colors"
+                >
+                  Contact
+                </NavLink>
+              </li>
+              <li>
+                <span className="text-gray-500 text-sm">Careers</span>
+              </li>
+            </ul>
+          </div>
+
+          {/* Legal */}
+          <div>
+            <h4 className="font-semibold text-white mb-4">Legal</h4>
+            <ul className="space-y-3">
+              <li>
+                <span className="text-gray-500 text-sm">Privacy Policy</span>
+              </li>
+              <li>
+                <span className="text-gray-500 text-sm">Terms of Service</span>
+              </li>
+              <li>
+                <span className="text-gray-500 text-sm">HIPAA Compliance</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        {/* Bottom Bar */}
+        <div className="mt-12 pt-8 border-t border-gray-800 flex flex-col md:flex-row items-center justify-between gap-4">
+          <p className="text-gray-500 text-sm">
+            © 2024 MediConnect. All rights reserved.
           </p>
-        </div>
-
-        <div>
-          <p className="text-xl font-medium mb-5">COMPANY</p>
-          <ul className="flex flex-col gap-2 text-gray-600">
-            <NavLink to="/">Home</NavLink>
-            <NavLink to="/about">About</NavLink>
-            <NavLink to="/contact">Contact</NavLink>
-          </ul>
-        </div>
-
-        <div>
-          <p className="text-xl font-medium mb-5">GET IN TOUCH</p>
-          <ul className="flex flex-col gap-2 text-gray-600">
-            <li>+910000000000</li>
-            <li>jadhavyash623@gmail.com</li>
-          </ul>
+          <div className="flex items-center gap-4">
+            <a
+              href="#"
+              className="text-gray-400 hover:text-white transition-colors"
+              aria-label="Twitter"
+            >
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"></path>
+              </svg>
+            </a>
+            <a
+              href="#"
+              className="text-gray-400 hover:text-white transition-colors"
+              aria-label="LinkedIn"
+            >
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"></path>
+              </svg>
+            </a>
+          </div>
         </div>
       </div>
-
-      <div>
-        <hr />
-        <p className="py-5 text-sm text-center">
-          Copyright 2024 @ MediConnect.com - All Right Reserved.
-        </p>
-      </div>
-    </div>
+    </footer>
   );
 };
 

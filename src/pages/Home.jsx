@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
 import Header from "../components/Header";
-import SpecialityMenu from "../components/SpecialityMenu";
 import TopDoctors from "../components/TopDoctors";
 import Banner from "../components/Banner";
+import FeaturesSection from "../components/FeaturesSection";
+import TestimonialsSection from "../components/TestimonialsSection";
 
 const Home = () => {
   useEffect(() => {
@@ -11,8 +12,9 @@ const Home = () => {
   return (
     <div>
       <Header />
-      <SpecialityMenu />
+      <FeaturesSection />
       <TopDoctors />
+      <TestimonialsSection />
       <Banner />
     </div>
   );
